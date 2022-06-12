@@ -9,11 +9,11 @@ import {
   DatabaseIntrospector,
   PostgresIntrospector,
 } from "kysely";
-import { DataApiDriver, DataApiDriverConfig } from "./data-api-driver.js";
+import { DataApiDriver, DataApiDriverConfig } from "./data-api-driver";
 import {
   PostgresDataApiQueryCompiler,
   MysqlDataApiQueryCompiler,
-} from "./data-api-query-compiler.js";
+} from "./data-api-query-compiler";
 
 type DataApiDialectConfig = {
   mode: "postgres" | "mysql";
@@ -46,7 +46,7 @@ export class DataApiDialect implements Dialect {
     throw new Error("Unknown mode " + this.#config.mode);
   }
 
-  createIntrospector(db: Kysely<any>): DatabaseIntrospector {
+  createIntrospector(db: Kysely<unknown>): DatabaseIntrospector {
     if (this.#config.mode === "postgres") return new PostgresIntrospector(db);
     if (this.#config.mode === "mysql") return new MysqlIntrospector(db);
 
